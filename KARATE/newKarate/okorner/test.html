@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #output {
+            width: 20px;
+            height: 20px;
+            color: red;
+            font-size: 20px;
+            padding: 10px;
+            background-color: black;
+            border: 2px solid #000;
+            margin: 1.8rem;
+            border-radius: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <label for="">Date of birth:</label><br>
+    <input type="date" id="date"><br>
+    <button onclick="total()">Submit</button>
+
+    <div id="output"></div>
+    <script>
+        function calculateTotalNumberFromDate(date) {
+            // Step 1: Extract day, month, and year
+            const day = date.getDate();
+            const month = date.getMonth() + 1; // Note: month is zero-based
+            const year = date.getFullYear();
+
+            // Step 2: Add day, month, and year
+            let total = day + month + year;
+
+            // Step 3: Keep adding digits until single-digit number
+            while (total > 9) {
+                let sum = 0;
+                while (total > 0) {
+                    sum += total % 10;
+                    total = Math.floor(total / 10);
+                }
+                total = sum;
+            }
+
+            return total;
+        }
+
+        function total() {
+            const dateString = document.getElementById('date').value;
+            const date = new Date(dateString); // Convert string to Date object
+            const totalNumber = calculateTotalNumberFromDate(date);
+            // console.log(totalNumber);
+            const outputDiv = document.getElementById('output');
+            outputDiv.textContent = totalNumber;
+        }
+    </script>
+
+</body>
+
+</html>
